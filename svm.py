@@ -2,6 +2,8 @@ import argparse
 from cmath import isnan
 import pandas as pd
 import numpy as np
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.model_selection import train_test_split
 from sklearn import svm
 from sklearn import metrics
 from sklearn.metrics import classification_report
@@ -19,18 +21,18 @@ args = parser.parse_args()
 with open(args.train_path, 'r') as train_f:
     col_names = ["text", "label"]
     train_df = pd.read_csv(train_f, delimiter="\t", names=col_names)
-    train_df.dropna()
-    # df.head()
+    train_df = train_df.dropna()
+    # train_df[train_df['label'].isna()]
     x_train = [row[0] for row in train_df.itertuples(index=False)]
     y_train = [row[1] for row in train_df.itertuples(index=False)]
 
 with open(args.test_path, 'r') as test_f:
     col_names = ["text", "label"]
     test_df = pd.read_csv(test_f, delimiter="\t", names=col_names)
-    test_df.dropna()
+    test_df = test_df.dropna()
+    # test_df[test_df['label'].isna()]
     x_test = [row[0] for row in test_df.itertuples(index=False)]
     y_test = [row[1] for row in test_df.itertuples(index=False)]
-
 
 """
 Step 2: create unigrams, unigrams+bigrams, unigrams+bigrams+trigrams
@@ -42,8 +44,6 @@ def make_ngram(n, threshold, txt_list):
     ngrams_dict = {}
     # ngrams_list = []
     for txt in txt_list:
-        if pd.isna(txt): # TO-DO: debug to figure out why there are NaN values in txt_list
-            continue
         if n==1:        # make unigrams
             words = txt.split(" ")
             for word in words:
@@ -88,7 +88,6 @@ def make_ngram(n, threshold, txt_list):
 
     return ngrams_dict
 
-
 # returns input text data, vectorized according to ngram_list
 #       @text: input text
 #       @ngram_list: list of ngrams
@@ -107,7 +106,7 @@ def make_vectorized_data(text, ngram_list, vectorized_list):
 
 # trains SVM on X_train & y_train; tests X_test and y_test as y_pred
 # also prints out Accuracy, Precision, Recall, & F1-score
-def train_test(X_train, y_train, X_test, y_test):
+def classify(X_train, y_train, X_test, y_test):
     clf = svm.SVC(kernel='linear')
     print("Training...")
     clf.fit(X_train, y_train)
@@ -121,83 +120,82 @@ def train_test(X_train, y_train, X_test, y_test):
 
 
 
-# """
-# Step 3: train & predict
-#         Linear SVM with default parameters
-# """
+"""
+Step 3: train & predict
+        Linear SVM with default parameters
+"""
 
 ##### threshold == 2
 
 ## unigrams 
-print("\n===== threshold 2, unigrams =====")
-unigrams_2 = list(make_ngram(1, 2, x_train).keys())
-vectorized_uni_2 = {key:ind for ind,key in enumerate(unigrams_2)}
-X_train = np.array(make_vectorized_data(x_train, unigrams_2, vectorized_uni_2))
-X_test = np.array(make_vectorized_data(x_test, unigrams_2, vectorized_uni_2))
-train_test(X_train, y_train, X_test, y_test)
+# print("\n===== threshold 2, unigrams =====")
+print("\n===== unigrams =====")
+vectorizer = CountVectorizer(ngram_range=(1,1))
+X = vectorizer.fit_transform(x_train+x_test).toarray()
+X_train = X[:len(x_train)]
+X_test = X[len(x_train):]
+classify(X_train, y_train, X_test, y_test)
 
 ## unigrams + bigrams
-print("\n===== threshold 2, unigrams + bigrams =====")
-bigrams_2 = list(make_ngram(2, 2, x_train).keys())
-uni_bi_2 = unigrams_2 + bigrams_2
-vectorized_uni_bi_2 = {key:ind for ind,key in enumerate(uni_bi_2)}
-X_train = np.array(make_vectorized_data(x_train, uni_bi_2, vectorized_uni_bi_2))
-X_test = np.array(make_vectorized_data(x_test, uni_bi_2, vectorized_uni_bi_2))
-train_test(X_train, y_train, X_test, y_test)
+print("\n===== unigrams + bigrams =====")
+vectorizer = CountVectorizer(ngram_range=(1,2))
+X = vectorizer.fit_transform(x_train+x_test).toarray()
+X_train = X[:len(x_train)]
+X_test = X[len(x_train):]
+classify(X_train, y_train, X_test, y_test)
 
 ## unigrams + bigrams + trigrams  
-print("\n===== threshold 2, unigrams + bigrams + trigrams =====")   
-trigrams_2 = list(make_ngram(3, 2, x_train).keys())
-uni_bi_tri_2 = uni_bi_2 + trigrams_2
-vectorized_uni_bi_tri_2 = {key:ind for ind,key in enumerate(uni_bi_tri_2)}
-X_train = np.array(make_vectorized_data(x_train, uni_bi_tri_2, vectorized_uni_bi_tri_2))
-X_test = np.array(make_vectorized_data(x_test, uni_bi_tri_2, vectorized_uni_bi_tri_2))
-train_test(X_train, y_train, X_test, y_test)
+print("\n===== unigrams + bigrams + trigrams =====")   
+vectorizer = CountVectorizer(ngram_range=(1,3))
+X = vectorizer.fit_transform(x_train+x_test).toarray()
+X_train = X[:len(x_train)]
+X_test = X[len(x_train):]
+classify(X_train, y_train, X_test, y_test)
 
 
 
-##### threshold == 3
+# ##### threshold == 3
 
-## unigrams
-print("\n===== threshold 3, unigrams =====")
-unigrams_3 = list(make_ngram(1, 3, x_train).keys())
-vectorized_uni_3 = {key:ind for ind,key in enumerate(unigrams_3)}
-X_train = np.array(make_vectorized_data(x_train, unigrams_3, vectorized_uni_3))
-clf = svm.SVC(kernel='linear')
-print("Training...")
-clf.fit(X_train, y_train)
-X_test = np.array(make_vectorized_data(x_test, unigrams_3, vectorized_uni_3))
-print("Testing...")
-y_pred = clf.predict(X_test)
-print(f"Accuracy: {metrics.accuracy_score(y_test, y_pred)}\n")
-print(classification_report(y_test, y_pred))
+# ## unigrams
+# print("\n===== threshold 3, unigrams =====")
+# unigrams_3 = list(make_ngram(1, 3, x_train).keys())
+# vectorized_uni_3 = {key:ind for ind,key in enumerate(unigrams_3)}
+# X_train = np.array(make_vectorized_data(x_train, unigrams_3, vectorized_uni_3))
+# clf = svm.SVC(kernel='linear')
+# print("Training...")
+# clf.fit(X_train, y_train)
+# X_test = np.array(make_vectorized_data(x_test, unigrams_3, vectorized_uni_3))
+# print("Testing...")
+# y_pred = clf.predict(X_test)
+# print(f"Accuracy: {metrics.accuracy_score(y_test, y_pred)}\n")
+# print(classification_report(y_test, y_pred))
 
-## unigrams + bigrams
-print("\n===== threshold 3, unigrams + bigrams =====")
-bigrams_3 = list(make_ngram(2, 3, x_train).keys())
-uni_bi_3 = unigrams_3 + bigrams_3
-vectorized_uni_bi_3 = {key:ind for ind,key in enumerate(uni_bi_3)}
-X_train = np.array(make_vectorized_data(x_train, uni_bi_3, vectorized_uni_bi_3))
-clf = svm.SVC(kernel='linear')
-print("Training...")
-clf.fit(X_train, y_train)
-X_test = np.array(make_vectorized_data(x_test, uni_bi_3, vectorized_uni_bi_3))
-print("Testing...")
-y_pred = clf.predict(X_test)
-print(f"Accuracy: {metrics.accuracy_score(y_test, y_pred)}\n")
-print(classification_report(y_test, y_pred))
+# # ## unigrams + bigrams
+# # print("\n===== threshold 3, unigrams + bigrams =====")
+# # bigrams_3 = list(make_ngram(2, 3, x_train).keys())
+# # uni_bi_3 = unigrams_3 + bigrams_3
+# # vectorized_uni_bi_3 = {key:ind for ind,key in enumerate(uni_bi_3)}
+# # X_train = np.array(make_vectorized_data(x_train, uni_bi_3, vectorized_uni_bi_3))
+# # clf = svm.SVC(kernel='linear')
+# # print("Training...")
+# # clf.fit(X_train, y_train)
+# # X_test = np.array(make_vectorized_data(x_test, uni_bi_3, vectorized_uni_bi_3))
+# # print("Testing...")
+# # y_pred = clf.predict(X_test)
+# # print(f"Accuracy: {metrics.accuracy_score(y_test, y_pred)}\n")
+# # print(classification_report(y_test, y_pred))
 
-## unigrams + bigrams + trigrams  
-print("\n===== threshold 3, unigrams + bigrams + trigrams =====")   
-trigrams_3 = list(make_ngram(3, 3, x_train).keys())
-uni_bi_tri_3 = uni_bi_3 + trigrams_3
-vectorized_uni_bi_tri_3 = {key:ind for ind,key in enumerate(uni_bi_tri_3)}
-X_train = np.array(make_vectorized_data(x_train, uni_bi_tri_3, vectorized_uni_bi_tri_3))
-clf = svm.SVC(kernel='linear')
-print("Training...")
-clf.fit(X_train, y_train)
-X_test = np.array(make_vectorized_data(x_test, uni_bi_tri_3, vectorized_uni_bi_tri_3))
-print("Testing...")
-y_pred = clf.predict(X_test)
-print(f"Accuracy: {metrics.accuracy_score(y_test, y_pred)}\n")
-print(classification_report(y_test, y_pred))
+# # ## unigrams + bigrams + trigrams  
+# # print("\n===== threshold 3, unigrams + bigrams + trigrams =====")   
+# # trigrams_3 = list(make_ngram(3, 3, x_train).keys())
+# # uni_bi_tri_3 = uni_bi_3 + trigrams_3
+# # vectorized_uni_bi_tri_3 = {key:ind for ind,key in enumerate(uni_bi_tri_3)}
+# # X_train = np.array(make_vectorized_data(x_train, uni_bi_tri_3, vectorized_uni_bi_tri_3))
+# # clf = svm.SVC(kernel='linear')
+# # print("Training...")
+# # clf.fit(X_train, y_train)
+# # X_test = np.array(make_vectorized_data(x_test, uni_bi_tri_3, vectorized_uni_bi_tri_3))
+# # print("Testing...")
+# # y_pred = clf.predict(X_test)
+# # print(f"Accuracy: {metrics.accuracy_score(y_test, y_pred)}\n")
+# # print(classification_report(y_test, y_pred))
