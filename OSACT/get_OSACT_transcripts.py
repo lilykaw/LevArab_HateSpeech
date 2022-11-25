@@ -5,11 +5,9 @@ import random
 from googletrans import Translator # pip install googletrans==3.1.0a0
 from emot.emo_unicode import UNICODE_EMOJI, EMOTICONS_EMO, UNICODE_EMOJI_ALIAS
 
-# train: '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT_train.csv'
-# test-tweets: '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT2020-sharedTask-CodaLab-Train-Dev-Test/OSACT2020-sharedTask-test-tweets.txt'
-# test-labels: ''
-OSACT_TXT_PATH = '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT2020-sharedTask-CodaLab-Train-Dev-Test/OSACT2020-sharedTask-test-tweets.txt'
-OSACT_LAB_PATH = '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT2020-sharedTask-CodaLab-Train-Dev-Test/OSACT2020-sharedTask-test-taskB-gold-labels.txt'
+OSACT_XYTRAIN_PATH = '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT_train.csv'
+OSACT_XTEST_PATH = '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT2020-sharedTask-CodaLab-Train-Dev-Test/OSACT2020-sharedTask-test-tweets.txt'
+OSACT_YTEST_PATH = '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT2020-sharedTask-CodaLab-Train-Dev-Test/OSACT2020-sharedTask-test-taskB-gold-labels.txt'
 
 def emoji_to_text(txt):     # helper for preprocess()
     # translator = google_translator()
@@ -62,36 +60,23 @@ def preprocess(txt):
 
 """
 Read in csv file. Preprocess each tweet as it's being read in. 
-Store transcripts + labels in a dict.
+Store cleaned text plus its label in a tsv file.
 """
-osact_dict = {}
-hate = []
-not_hate = []
 
 """ TRAINING FILE"""
-# with open(OSACT_TSV_PATH, 'r') as f:
-    # reader = csv.reader(f, delimiter=",")
-    # for row in reader:
-    #     preproc_txt = preprocess(row[0])
-    #     osact_dict[preproc_txt] = row[1]
-    #     if row[1]=="HS":
-    #         hate.append(preproc_txt)
-    #     elif row[1]=="NOT_HS":
-    #         not_hate.append(preproc_txt)
+with open(OSACT_XYTRAIN_PATH, 'r') as f:
+    reader = csv.reader(f, delimiter=",")
+    osact_train_list = [(preprocess(row[0]), row[1]) for row in reader]
+with open('osact_train_cleaned2.tsv', 'w') as f:
+    for pair in osact_train_list:
+        f.write(f"{pair[0]}\t{pair[1]}\n")
+
 
 """ TEST FILES (TXT & LABELS) """
-with open(OSACT_TXT_PATH, 'r') as f1, open(OSACT_LAB_PATH, 'r') as f2:
+with open(OSACT_XTEST_PATH, 'r') as f1, open(OSACT_YTEST_PATH, 'r') as f2:
     reader1 = f1.read().splitlines() 
     reader2 = f2.read().splitlines()
-    for i,row in enumerate(reader1):
-        preproc_txt = preprocess(row)
-        osact_dict[preproc_txt] = reader2[i]
-        if reader2[i]=="HS":
-            hate.append(preproc_txt)
-        elif reader2[i]=="NOT_HS":
-            not_hate.append(preproc_txt)
-  
-## with open('osact_train_cleaned_2.tsv', 'w') as f:
-with open('osact_test_cleaned.tsv', 'w') as f:
-    for key in osact_dict.keys():
-        f.write(f"{key}\t{osact_dict[key]}\n")
+    osact_test_list = [(preprocess(row), reader2[i]) for i,row in enumerate(reader1)]  
+with open('osact_test_cleaned2.tsv', 'w') as f:
+    for pair in osact_test_list:
+        f.write(f"{pair[0]}\t{pair[1]}\n")
