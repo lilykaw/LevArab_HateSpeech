@@ -1,11 +1,9 @@
 from dataclasses import replace
-import os, sys, re
+import re
 import csv
-import string
 import random
-import pickle
 # from translate import Translator # limit to how many times you can use this in a day lmao
-from googletrans import Translator, constants
+from googletrans import Translator
 from emot.emo_unicode import UNICODE_EMOJI
 
 
@@ -35,7 +33,7 @@ def preprocess(txt):
     return text
 
 """
-Step 1: Read in tsv file. Rreprocess each tweet as it's being read in. 
+Step 1: Read in tsv file. Preprocess each tweet as it's being read in. 
         Make train-test splits. Following Mulki et al. (2019), we then create the following sets: 
             - train set: 339 hate + 4337 non-hate (we combine abusive + normal) = 4676 total
             - test set:  129 hate + 1041 non-hate (we combine abusive + normal) = 1170 total
