@@ -22,6 +22,7 @@ with open(args.train_path, 'r') as train_f:
     train_df = train_df.dropna()
     x_train = [row[0] for row in train_df.itertuples(index=False)]
     y_train = [row[1] for row in train_df.itertuples(index=False)]
+    y_train = ["HS" if label=="hate" else "NOT_HS" for label in y_train]   # uncomment if using L-HSAB files
 
 with open(args.test_path, 'r') as test_f:
     col_names = ["text", "label"]
@@ -29,6 +30,7 @@ with open(args.test_path, 'r') as test_f:
     test_df = test_df.dropna()
     x_test = [row[0] for row in test_df.itertuples(index=False)]
     y_test = [row[1] for row in test_df.itertuples(index=False)]
+    y_test = ["HS" if label=="hate" else "NOT_HS" for label in y_test]    # uncomment if using L-HSAB files
 
 """
 Step 2: create unigrams, unigrams+bigrams, unigrams+bigrams+trigrams

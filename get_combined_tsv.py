@@ -1,10 +1,18 @@
 import pandas as pd
+import argparse
 
-COMBINED_TSV_PATH = 'combined_train.tsv'
+parser = argparse.ArgumentParser()
+parser.add_argument('--train_path1', type=str, required=True)   # path to training data
+parser.add_argument('--train_path2', type=str, required=True)   # path to training data
+args = parser.parse_args()
 
+
+""" Create combined train tsv """
 ### Read in LHSAB and OSACT datasets
-df1 = pd.read_csv('/Users/lilykawaoto/Documents/GitHub/LING-L715/lhsab_train.tsv', sep="\t", header=None)             # LHSAB train
-df2 = pd.read_csv('/Users/lilykawaoto/Documents/GitHub/LING-L715/osact_train_cleaned.tsv', sep="\t", error_bad_lines=False, header=None)     # OSACT train
+with open(args.train_path1, 'r') as train_file_1:
+    df1 = pd.read_csv(train_file_1, sep="\t", header=None)                            # LHSAB train
+with open(args.train_path2, 'r') as train_file_2:
+    df2 = pd.read_csv(train_file_2, sep="\t", error_bad_lines=False, header=None)     # OSACT train
 newdf = df1.append(df2, ignore_index=True)
 
 ### Standardize label column (for LHSAB dataset: "hate"->"HS", "normal"/"abusive"->"NOT_HS")
