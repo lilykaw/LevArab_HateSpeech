@@ -120,78 +120,27 @@ def classify(X_train, y_train, X_test, y_test):
 Step 3: train & predict
         Linear SVM with default parameters
 """
-
-##### threshold == 2
-
 ## unigrams 
 # print("\n===== threshold 2, unigrams =====")
 print("\n===== unigrams =====")
 vectorizer = CountVectorizer(ngram_range=(1,1))
-X = vectorizer.fit_transform(x_train+x_test).toarray()  # uncomment for OSACT
-X_train = X[:len(x_train)]                              # uncomment for OSACT
-X_test = X[len(x_train):]                               # uncomment for OSACT
+X = vectorizer.fit_transform(x_train+x_test).toarray()  
+X_train = X[:len(x_train)]                              
+X_test = X[len(x_train):]                               
 classify(X_train, y_train, X_test, y_test)
 
 ## unigrams + bigrams
 print("\n===== unigrams + bigrams =====")
 vectorizer = CountVectorizer(ngram_range=(1,2))
-X = vectorizer.fit_transform(x_train+x_test).toarray()  # uncomment for OSACT
-X_train = X[:len(x_train)]                              # uncomment for OSACT
-X_test = X[len(x_train):]                               # uncomment for OSACT
+X = vectorizer.fit_transform(x_train+x_test).toarray()  
+X_train = X[:len(x_train)]                              
+X_test = X[len(x_train):]                               
 classify(X_train, y_train, X_test, y_test)
 
 ## unigrams + bigrams + trigrams  
 print("\n===== unigrams + bigrams + trigrams =====")   
 vectorizer = CountVectorizer(ngram_range=(1,3))
-X = vectorizer.fit_transform(x_train+x_test).toarray()    # uncomment for OSACT
-X_train = X[:len(x_train)]                                # uncomment for OSACT
-X_test = X[len(x_train):]                                 # uncomment for OSACT
+X = vectorizer.fit_transform(x_train+x_test).toarray()    
+X_train = X[:len(x_train)]                                
+X_test = X[len(x_train):]                                 
 classify(X_train, y_train, X_test, y_test)
-
-
-
-# ##### threshold == 3
-
-# ## unigrams
-# print("\n===== threshold 3, unigrams =====")
-# unigrams_3 = list(make_ngram(1, 3, x_train).keys())
-# vectorized_uni_3 = {key:ind for ind,key in enumerate(unigrams_3)}
-# X_train = np.array(make_vectorized_data(x_train, unigrams_3, vectorized_uni_3))
-# clf = svm.SVC(kernel='linear')
-# print("Training...")
-# clf.fit(X_train, y_train)
-# X_test = np.array(make_vectorized_data(x_test, unigrams_3, vectorized_uni_3))
-# print("Testing...")
-# y_pred = clf.predict(X_test)
-# print(f"Accuracy: {metrics.accuracy_score(y_test, y_pred)}\n")
-# print(classification_report(y_test, y_pred))
-
-# # ## unigrams + bigrams
-# # print("\n===== threshold 3, unigrams + bigrams =====")
-# # bigrams_3 = list(make_ngram(2, 3, x_train).keys())
-# # uni_bi_3 = unigrams_3 + bigrams_3
-# # vectorized_uni_bi_3 = {key:ind for ind,key in enumerate(uni_bi_3)}
-# # X_train = np.array(make_vectorized_data(x_train, uni_bi_3, vectorized_uni_bi_3))
-# # clf = svm.SVC(kernel='linear')
-# # print("Training...")
-# # clf.fit(X_train, y_train)
-# # X_test = np.array(make_vectorized_data(x_test, uni_bi_3, vectorized_uni_bi_3))
-# # print("Testing...")
-# # y_pred = clf.predict(X_test)
-# # print(f"Accuracy: {metrics.accuracy_score(y_test, y_pred)}\n")
-# # print(classification_report(y_test, y_pred))
-
-# # ## unigrams + bigrams + trigrams  
-# # print("\n===== threshold 3, unigrams + bigrams + trigrams =====")   
-# # trigrams_3 = list(make_ngram(3, 3, x_train).keys())
-# # uni_bi_tri_3 = uni_bi_3 + trigrams_3
-# # vectorized_uni_bi_tri_3 = {key:ind for ind,key in enumerate(uni_bi_tri_3)}
-# # X_train = np.array(make_vectorized_data(x_train, uni_bi_tri_3, vectorized_uni_bi_tri_3))
-# # clf = svm.SVC(kernel='linear')
-# # print("Training...")
-# # clf.fit(X_train, y_train)
-# # X_test = np.array(make_vectorized_data(x_test, uni_bi_tri_3, vectorized_uni_bi_tri_3))
-# # print("Testing...")
-# # y_pred = clf.predict(X_test)
-# # print(f"Accuracy: {metrics.accuracy_score(y_test, y_pred)}\n")
-# # print(classification_report(y_test, y_pred))

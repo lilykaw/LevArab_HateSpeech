@@ -1,4 +1,5 @@
 from dataclasses import replace
+import argparse
 import re
 import csv
 import random
@@ -6,9 +7,15 @@ import time
 from googletrans import Translator # pip install googletrans==3.1.0a0
 from emot.emo_unicode import UNICODE_EMOJI, EMOTICONS_EMO, UNICODE_EMOJI_ALIAS
 
-OSACT_XYTRAIN_PATH = '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT_train.csv'
-OSACT_XTEST_PATH = '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT2020-sharedTask-CodaLab-Train-Dev-Test/OSACT2020-sharedTask-test-tweets.txt'
-OSACT_YTEST_PATH = '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT2020-sharedTask-CodaLab-Train-Dev-Test/OSACT2020-sharedTask-test-taskB-gold-labels.txt'
+parser = argparse.ArgumentParser()
+parser.add_argument('--XYtrain_path', type=str) # path to training data + labels
+parser.add_argument('--Xtest_path', type=str)   # path to test data
+parser.add_argument('--Ytest_path', type=str)   # path to test labels
+args = parser.parse_args()
+
+OSACT_XYTRAIN_PATH = args.XYtrain_path  # '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT_train.csv'
+OSACT_XTEST_PATH = args.Xtest_path      # '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT2020-sharedTask-CodaLab-Train-Dev-Test/OSACT2020-sharedTask-test-tweets.txt'
+OSACT_YTEST_PATH = args.Ytest_path      # '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT2020-sharedTask-CodaLab-Train-Dev-Test/OSACT2020-sharedTask-test-taskB-gold-labels.txt'
 
 def emoji_to_text(txt):     # helper for preprocess()
     # translator = google_translator()
@@ -100,10 +107,10 @@ with open('osact_train_cleaned4.tsv', 'w') as f:
 
 
 """ TEST FILES (TXT & LABELS) """
-# with open(OSACT_XTEST_PATH, 'r') as f1, open(OSACT_YTEST_PATH, 'r') as f2:
-#     reader1 = f1.read().splitlines() 
-#     reader2 = f2.read().splitlines()
-#     osact_test_list = [(preprocess(row), reader2[i]) for i,row in enumerate(reader1)]  
-# with open('osact_test_cleaned3.tsv', 'w') as f:
-#     for pair in osact_test_list:
-#         f.write(f"{pair[0]}\t{pair[1]}\n")
+with open(OSACT_XTEST_PATH, 'r') as f1, open(OSACT_YTEST_PATH, 'r') as f2:
+    reader1 = f1.read().splitlines() 
+    reader2 = f2.read().splitlines()
+    osact_test_list = [(preprocess(row), reader2[i]) for i,row in enumerate(reader1)]  
+with open('osact_test_cleaned3.tsv', 'w') as f:
+    for pair in osact_test_list:
+        f.write(f"{pair[0]}\t{pair[1]}\n")
