@@ -20,7 +20,7 @@ args = parser.parse_args()
 # newdf.to_csv('combined_train.tsv', sep='\t', header=False, index=False)
 
 
-""" Create LHSAB test tsv with binary labels """
+""" Create LHSAB tsv with binary labels """
 ### Standardize label column (for LHSAB dataset: "hate"->"HS", "normal"/"abusive"->"NOT_HS")
 with open(args.test_path, 'r') as f:
     df = pd.read_csv(f, sep="\t", header=None)

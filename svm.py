@@ -5,6 +5,8 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn import svm
 from sklearn import metrics
 from sklearn.metrics import classification_report
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import chi2
 
 
 """
@@ -124,23 +126,29 @@ Step 3: train & predict
 # print("\n===== threshold 2, unigrams =====")
 print("\n===== unigrams =====")
 vectorizer = CountVectorizer(ngram_range=(1,1))
-X = vectorizer.fit_transform(x_train+x_test).toarray()  
-X_train = X[:len(x_train)]                              
-X_test = X[len(x_train):]                               
+selector = SelectKBest(chi2, k=4000)
+X_train = vectorizer.fit_transform(x_train).toarray() # shape: (11417, 44627)
+X_train = selector.fit_transform(X_train, y_train)  # shape: (11417, 1000)
+X_test = vectorizer.transform(x_test).toarray() # shape: (1164, 44627)
+X_test = selector.transform(X_test)  # shape: (1164, 1000)                              
 classify(X_train, y_train, X_test, y_test)
 
 ## unigrams + bigrams
 print("\n===== unigrams + bigrams =====")
 vectorizer = CountVectorizer(ngram_range=(1,2))
-X = vectorizer.fit_transform(x_train+x_test).toarray()  
-X_train = X[:len(x_train)]                              
-X_test = X[len(x_train):]                               
-classify(X_train, y_train, X_test, y_test)
+selector = SelectKBest(chi2, k=4000)
+X_train = vectorizer.fit_transform(x_train).toarray() # shape: (11417, 44627)
+X_train = selector.fit_transform(X_train, y_train)  # shape: (11417, 1000)
+X_test = vectorizer.transform(x_test).toarray() # shape: (1164, 44627)
+X_test = selector.transform(X_test)  # shape: (1164, 1000)                              
+classify(X_train, y_train, X_test, y_test)                            
 
 ## unigrams + bigrams + trigrams  
 print("\n===== unigrams + bigrams + trigrams =====")   
 vectorizer = CountVectorizer(ngram_range=(1,3))
-X = vectorizer.fit_transform(x_train+x_test).toarray()    
-X_train = X[:len(x_train)]                                
-X_test = X[len(x_train):]                                 
+selector = SelectKBest(chi2, k=4000)
+X_train = vectorizer.fit_transform(x_train).toarray() # shape: (11417, 44627)
+X_train = selector.fit_transform(X_train, y_train)  # shape: (11417, 1000)
+X_test = vectorizer.transform(x_test).toarray() # shape: (1164, 44627)
+X_test = selector.transform(X_test)  # shape: (1164, 1000)                              
 classify(X_train, y_train, X_test, y_test)
