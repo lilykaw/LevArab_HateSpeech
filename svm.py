@@ -129,7 +129,7 @@ vectorizer = CountVectorizer(ngram_range=(1,1))
 selector = SelectKBest(chi2, k=4000)
 X_train = vectorizer.fit_transform(x_train).toarray() # shape: (11417, 44627)
 X_train = selector.fit_transform(X_train, y_train)  # shape: (11417, 1000)
-X_test = vectorizer.transform(x_test).toarray() # shape: (1164, 44627)
+X_test = vectorizer.transform(x_test).toarray() # shape: (1164, 44627) # use the fitted selector to transform the test data
 X_test = selector.transform(X_test)  # shape: (1164, 1000)                              
 classify(X_train, y_train, X_test, y_test)
 
@@ -145,10 +145,12 @@ classify(X_train, y_train, X_test, y_test)
 
 ## unigrams + bigrams + trigrams  
 print("\n===== unigrams + bigrams + trigrams =====")   
-vectorizer = CountVectorizer(ngram_range=(1,3))
-selector = SelectKBest(chi2, k=4000)
+vectorizer = CountVectorizer(ngram_range=(1,3), max_features=3000, dtype=np.int32)
+selector = SelectKBest(chi2, k=3000)
 X_train = vectorizer.fit_transform(x_train).toarray() # shape: (11417, 44627)
+X_train = np.array(X_train, dtype='int32')
 X_train = selector.fit_transform(X_train, y_train)  # shape: (11417, 1000)
 X_test = vectorizer.transform(x_test).toarray() # shape: (1164, 44627)
+X_test = np.array(X_test, dtype='int32')
 X_test = selector.transform(X_test)  # shape: (1164, 1000)                              
 classify(X_train, y_train, X_test, y_test)

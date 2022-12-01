@@ -1,40 +1,49 @@
-### before reducing number of features with SelectK and fixing the fit_transform bug
-
 ===== unigrams =====
 Training...
 Testing...
-Accuracy: 0.9020618556701031
-Precision: 0.7642329545454545
-Recall: 0.6402781129343629
-Macro-f1: 0.676439606741573
+Accuracy: 0.8908934707903781
+Precision: 0.7128314272526797
+Recall: 0.5312952461389961
+Macro-f1: 0.5329805550728988
               precision    recall  f1-score   support
 
-          HS       0.61      0.30      0.41       128
-      NOT_HS       0.92      0.98      0.95      1036
-
-    accuracy                           0.90      1164
-   macro avg       0.76      0.64      0.68      1164
-weighted avg       0.89      0.90      0.89      1164
-
-
-
-# after reducing number of features with SelectK and fixing the fit_transform bug
-
-===== unigrams =====
-Training...
-Testing...
-Accuracy: 0.8917525773195877
-Precision: 0.7238636363636364
-Recall: 0.5386251206563706
-Macro-f1: 0.545425241755517
-              precision    recall  f1-score   support
-
-          HS       0.55      0.09      0.15       128
+          HS       0.53      0.07      0.12       128
       NOT_HS       0.90      0.99      0.94      1036
 
     accuracy                           0.89      1164
-   macro avg       0.72      0.54      0.55      1164
+   macro avg       0.71      0.53      0.53      1164
 weighted avg       0.86      0.89      0.85      1164
 
 
-# ok starting over, this time should be right :)
+===== unigrams + bigrams =====
+Training...
+Testing...
+Accuracy: 0.8994845360824743
+Precision: 0.8319585051868517
+Recall: 0.5600868725868726
+Macro-f1: 0.5805353727311647
+              precision    recall  f1-score   support
+
+          HS       0.76      0.12      0.21       128
+      NOT_HS       0.90      1.00      0.95      1036
+
+    accuracy                           0.90      1164
+   macro avg       0.83      0.56      0.58      1164
+weighted avg       0.89      0.90      0.87      1164
+
+
+===== unigrams + bigrams + trigrams =====
+Training...
+Testing...
+Accuracy: 0.8917525773195877
+Precision: 0.7142142142142143
+Recall: 0.5968267374517375
+Macro-f1: 0.6244892106961072
+              precision    recall  f1-score   support
+
+          HS       0.52      0.22      0.31       128
+      NOT_HS       0.91      0.97      0.94      1036
+
+    accuracy                           0.89      1164
+   macro avg       0.71      0.60      0.62      1164
+weighted avg       0.87      0.89      0.87      1164
