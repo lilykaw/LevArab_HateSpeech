@@ -35,3 +35,6 @@ Macro-f1: 0.545425241755517
     accuracy                           0.89      1164
    macro avg       0.72      0.54      0.55      1164
 weighted avg       0.86      0.89      0.85      1164
+
+
+# ok starting over, this time should be right :)
