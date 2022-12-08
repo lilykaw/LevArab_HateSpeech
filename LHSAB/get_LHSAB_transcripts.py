@@ -2,8 +2,6 @@ from dataclasses import replace
 import re
 import csv
 import random
-# from translate import Translator # limit to how many times you can use this in a day lmao
-from googletrans import Translator
 from emot.emo_unicode import UNICODE_EMOJI
 
 
@@ -11,15 +9,10 @@ LHSAB_TSV_PATH = '/Users/lilykawaoto/Documents/GitHub/LING-L715/L-HSAB.tsv'
 
 
 def emoji_to_text(txt):     # preprocessing
-    translator= Translator()
     text = ""
     for char in txt: 
         if char in UNICODE_EMOJI:
-            tmp = char.replace(char, " ".join(UNICODE_EMOJI[char].replace(",","").replace(":","").split("_")))
-            
-            translation = translator.translate(tmp, dest='ar')
-            text += "< " + translation.text + " >"
-            text += " "
+            continue
         else:
             text += char
     return text
