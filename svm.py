@@ -111,9 +111,9 @@ def classify(X_train, y_train, X_test, y_test):
     print("Testing...")
     y_pred = clf.predict(X_test)
     print(f"Accuracy: {metrics.accuracy_score(y_test, y_pred)}")
-    print(f"Precision: {metrics.precision_score(y_test, y_pred, average='macro')}") # labels=['abusive', 'hate', 'normal']
-    print(f"Recall: {metrics.recall_score(y_test, y_pred, average='macro')}") # labels=['abusive', 'hate', 'normal']
-    print(f"Macro-f1: {metrics.f1_score(y_test, y_pred, average='macro')}") # labels=['abusive', 'hate', 'normal']
+    print(f"Precision: {metrics.precision_score(y_test, y_pred, average='macro')}") 
+    print(f"Recall: {metrics.recall_score(y_test, y_pred, average='macro')}") 
+    print(f"Macro-f1: {metrics.f1_score(y_test, y_pred, average='macro')}") 
     print(classification_report(y_test, y_pred))
 
 

@@ -17,12 +17,41 @@ OSACT_XYTRAIN_PATH = args.XYtrain_path  # '/Users/lilykawaoto/Documents/GitHub/L
 OSACT_XTEST_PATH = args.Xtest_path      # '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT2020-sharedTask-CodaLab-Train-Dev-Test/OSACT2020-sharedTask-test-tweets.txt'
 OSACT_YTEST_PATH = args.Ytest_path      # '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT2020-sharedTask-CodaLab-Train-Dev-Test/OSACT2020-sharedTask-test-taskB-gold-labels.txt'
 
-def del_emo(txt):     # helper for preprocess()
+def emoji_to_text(txt):     # helper for preprocess()
     translator= Translator()
     text = ""
     for char in txt: 
-        if char in UNICODE_EMOJI or char in UNICODE_EMOJI_ALIAS or char in EMOTICONS_EMO:
+        if char in UNICODE_EMOJI or char in UNICODE_EMOJI_ALIAS:
             continue
+        #     tmp = char.replace(char, " ".join(UNICODE_EMOJI[char].replace(",","").replace(":","").split("_")))
+        #     translation = translator.translate(tmp, dest='ar')
+        #     text += "< " + translation.text + " >"
+        #     # translation = translator.translate(tmp, lang_src='en', lang_tgt='ar')
+        #     # text += "< " + translation + " >"
+        #     text += " "
+        # elif char in UNICODE_EMOJI_ALIAS:
+        #     tmp = char.replace(char, " ".join(UNICODE_EMOJI_ALIAS[char].replace(",","").replace(":","").split("_")))
+        #     translation = translator.translate(tmp, dest='ar')
+        #     text += "< " + translation.text + " >"
+        #     # translation = translator.translate(tmp, lang_src='en', lang_tgt='ar')
+        #     # text += "< " + translation + " >"
+        #     text += " "
+        else:
+            text += char
+    return text
+
+def emoticon_to_text(txt):     # helper for preprocess()
+    translator= Translator()
+    text = ""
+    for char in txt: 
+        if char in EMOTICONS_EMO:
+            continue
+            # tmp = char.replace(char, EMOTICONS_EMO[char])
+            # translation = translator.translate(tmp, dest='ar')
+            # # translation = translator.translate(tmp, lang_src='en', lang_tgt='ar')
+            # text += "< " + translation.text + " >"
+            # # text += "< " + translation + " >"
+            # text += " "
         else:
             text += char
     return text
@@ -34,7 +63,9 @@ def preprocess(txt):
     text = re.sub(r'[a-zA-Z]', '', text)                # remove non-Arabic characters
     text = re.sub(r'\t', ' ', text)                     # replace tabs with single space
     text = re.sub(r'(.)\1\1+', r'\1', text)             # remove 3 or more repetitions of any character
-    text = del_emo(text)                          # replace emojis with their Arabic description
+    text = emoji_to_text(text)                          # replace emojis with their Arabic description
+    # time.sleep(0.5)
+    text = emoticon_to_text(text)                       # replace emoticons with their Arabic description
     return text
 
 """
@@ -70,7 +101,7 @@ with open(OSACT_XYTRAIN_PATH, 'r') as f:
         
         else:
             osact_train_list.append((preprocess(row[0]), row[1].strip()))
-with open('osact_train_cleaned_NEW.tsv', 'w') as f:
+with open('osact_train_cleaned4.tsv', 'w') as f:
     for pair in osact_train_list:
         f.write(f"{pair[0]}\t{pair[1]}\n")
 
@@ -80,6 +111,6 @@ with open(OSACT_XTEST_PATH, 'r') as f1, open(OSACT_YTEST_PATH, 'r') as f2:
     reader1 = f1.read().splitlines() 
     reader2 = f2.read().splitlines()
     osact_test_list = [(preprocess(row), reader2[i]) for i,row in enumerate(reader1)]  
-with open('osact_test_cleaned_NEW.tsv', 'w') as f:
+with open('osact_test_cleaned3.tsv', 'w') as f:
     for pair in osact_test_list:
         f.write(f"{pair[0]}\t{pair[1]}\n")
