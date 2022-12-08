@@ -38,6 +38,15 @@ def emoji_to_text(txt):     # helper for preprocess()
             text += char
     return text
 
+def emoji_to_text2(txt):     # helper for preprocess()
+    text = ""
+    for char in txt: 
+        if char in UNICODE_EMOJI or char in UNICODE_EMOJI_ALIAS:
+            text += ""
+        else:
+            text += char
+    return text
+
 def emoticon_to_text(txt):     # helper for preprocess()
     translator= Translator()
     # translator = google_translator()
@@ -54,18 +63,27 @@ def emoticon_to_text(txt):     # helper for preprocess()
             text += char
     return text
 
+def emoticon_to_text2(txt):     # helper for preprocess()
+    text = ""
+    for char in txt: 
+        if char in EMOTICONS_EMO:
+            text += ""
+        else:
+            text += char
+    return text
+
 
 def preprocess(txt):
-    patterns = ['#', '@', 'USER', ':', ';', 'RT', 'URL', '<LF>', '\.\.\.', '…', '!', '\.', '\?', '%', '\*', '"', "'", '\$', '\&', '/', '\)', '\(', '\[', '\]', '\}', '\{', '|', '\d+']
+    patterns = ['#', '@', 'USER', ':', ';', 'RT', 'URL', '<LF>', '\.\.\.', '…', '!', '\.', '\?', '%', '\*', '"', "'", '\$', '\&', '/', '\)', '\(', '\[', '\]', '\}', '\{', '|', '\d+', '_', '؟', 'ü', 'ı', 'ğ', 'ç']
     text = re.sub(r'@\w+ ', '', txt)                    # remove usernames
     text = re.sub('|'.join(patterns), '', text)         # remove patterns
     text = re.sub(r'[a-zA-Z0-9]', '', text)             # remove non-Arabic characters and numbers
     text = re.sub(r'\t', ' ', text)                     # replace tabs with single space
     text = re.sub(r'(.)\1\1+', r'\1', text)             # remove 3 or more repetitions of any character
-    text = emoji_to_text(text)                          # replace emojis with their Arabic description
-    time.sleep(0.5)
-    text = emoticon_to_text(text)                       # replace emoticons with their Arabic description
-    time.sleep(0.5)
+    text = emoji_to_text2(text)                          # replace emojis with their Arabic description
+    # time.sleep(0.5)
+    text = emoticon_to_text2(text)                       # replace emoticons with their Arabic description
+    # time.sleep(0.5)
     text = re.sub(r'http\S+', '', text)                 # remove URLs
     return text
 
@@ -74,33 +92,30 @@ Read in csv file. Preprocess each tweet as it's being read in.
 Store cleaned text plus its label in a tsv file.
 """
 
-# """ TRAINING FILE"""
-# with open(LEV_PATH, 'r') as f:
-#    lev_text = []
-#    reader = csv.reader(f, delimiter="\t")
-#    for i,row in enumerate(reader): 
-#        row = [nonspace for nonspace in row if nonspace]
-#        # assert(len(row)==3)
-#        #lev_text.append(preprocess(row[2]))
-#        lev_text.append(preprocess(row[0]))
-#    print(lev_text)
-        
-#with open('clean_LEV2.tsv', 'w') as f:
-#    for txt in lev_text:
-#        f.write(f"{txt}\tLEV\n")        
+""" TRAINING FILE"""
+with open(LEV_PATH, 'r') as f:
+   lev_text = []
+   reader = csv.reader(f, delimiter="\t")
+   for i,row in enumerate(reader): 
+       row = [nonspace for nonspace in row if nonspace]
+       assert(len(row)==3)
+       lev_text.append(preprocess(row[2]))        
+with open('clean_LEV_NoEmojiTrans.tsv', 'w') as f:
+   for txt in lev_text:
+       f.write(f"{txt}\tLEV\n")        
 
 
-""" NON-LEVANTINE FILES """
-text = []
-for P in OTHER_PATHS:
-    with open(P, 'r') as f:
-        reader = csv.reader(f, delimiter="\t")
-        for i,row in enumerate(reader): 
-            row = [nonspace for nonspace in row if nonspace]
-            assert(len(row)==3)
-            text.append(preprocess(row[2]))
-with open('clean_NONLEV.tsv', 'w') as f:
-    for txt in text:
-        f.write(f"{txt}\tNONLEV\n")
+# """ NON-LEVANTINE FILES """
+# text = []
+# for P in OTHER_PATHS:
+#     with open(P, 'r') as f:
+#         reader = csv.reader(f, delimiter="\t")
+#         for i,row in enumerate(reader): 
+#             row = [nonspace for nonspace in row if nonspace]
+#             assert(len(row)==3)
+#             text.append(preprocess(row[2]))
+# with open('clean_NONLEV.tsv', 'w') as f:
+#     for txt in text:
+#         f.write(f"{txt}\tNONLEV\n")
 
 
