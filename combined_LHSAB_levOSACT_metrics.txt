@@ -1,0 +1,51 @@
+
+===== unigrams =====
+Training...
+Testing...
+Accuracy: 0.8986254295532646
+Precision: 0.7766267568974492
+Recall: 0.5801459942084942
+Macro-f1: 0.6085633186279539
+              precision    recall  f1-score   support
+
+          HS     0.6471    0.1719    0.2716       128
+      NOT_HS     0.9062    0.9884    0.9455      1036
+
+    accuracy                         0.8986      1164
+   macro avg     0.7766    0.5801    0.6086      1164
+weighted avg     0.8777    0.8986    0.8714      1164
+
+
+===== unigrams + bigrams =====
+Training...
+Testing...
+Accuracy: 0.8951890034364262
+Precision: 0.8480069324090121
+Recall: 0.5302847490347491
+Macro-f1: 0.5301171332142148
+              precision    recall  f1-score   support
+
+          HS     0.8000    0.0625    0.1159       128
+      NOT_HS     0.8960    0.9981    0.9443      1036
+
+    accuracy                         0.8952      1164
+   macro avg     0.8480    0.5303    0.5301      1164
+weighted avg     0.8855    0.8952    0.8532      1164
+
+
+===== unigrams + bigrams + trigrams =====
+Training...
+Testing...
+Accuracy: 0.8908934707903781
+Precision: 0.7114351249307371
+Recall: 0.6237331081081081
+Macro-f1: 0.6510783131250428
+              precision    recall  f1-score   support
+
+          HS     0.5070    0.2812    0.3618       128
+      NOT_HS     0.9158    0.9662    0.9403      1036
+
+    accuracy                         0.8909      1164
+   macro avg     0.7114    0.6237    0.6511      1164
+weighted avg     0.8709    0.8909    0.8767      1164
+
