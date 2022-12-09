@@ -100,22 +100,22 @@ with open(LEV_PATH, 'r') as f:
        row = [nonspace for nonspace in row if nonspace]
        assert(len(row)==3)
        lev_text.append(preprocess(row[2]))        
-with open('clean_LEV_NoEmojiTrans.tsv', 'w') as f:
+with open('clean_LEV.tsv', 'w') as f:
    for txt in lev_text:
        f.write(f"{txt}\tLEV\n")        
 
 
-# """ NON-LEVANTINE FILES """
-# text = []
-# for P in OTHER_PATHS:
-#     with open(P, 'r') as f:
-#         reader = csv.reader(f, delimiter="\t")
-#         for i,row in enumerate(reader): 
-#             row = [nonspace for nonspace in row if nonspace]
-#             assert(len(row)==3)
-#             text.append(preprocess(row[2]))
-# with open('clean_NONLEV.tsv', 'w') as f:
-#     for txt in text:
-#         f.write(f"{txt}\tNONLEV\n")
+""" NON-LEVANTINE FILES """
+text = []
+for P in OTHER_PATHS:
+    with open(P, 'r') as f:
+        reader = csv.reader(f, delimiter="\t")
+        for i,row in enumerate(reader): 
+            row = [nonspace for nonspace in row if nonspace]
+            assert(len(row)==3)
+            text.append(preprocess(row[2]))
+with open('clean_NONLEV.tsv', 'w') as f:
+    for txt in text:
+        f.write(f"{txt}\tNONLEV\n")
 
 

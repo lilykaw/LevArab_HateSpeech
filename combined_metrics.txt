@@ -1,49 +1,51 @@
+
 ===== unigrams =====
 Training...
 Testing...
-Accuracy: 0.8908934707903781
-Precision: 0.7128314272526797
-Recall: 0.5312952461389961
-Macro-f1: 0.5329805550728988
+Accuracy: 0.8934707903780069
+Precision: 0.7545084351367074
+Recall: 0.5395903716216216
+Macro-f1: 0.546928166944992
               precision    recall  f1-score   support
 
-          HS       0.53      0.07      0.12       128
-      NOT_HS       0.90      0.99      0.94      1036
+          HS     0.6111    0.0859    0.1507       128
+      NOT_HS     0.8979    0.9932    0.9432      1036
 
-    accuracy                           0.89      1164
-   macro avg       0.71      0.53      0.53      1164
-weighted avg       0.86      0.89      0.85      1164
+    accuracy                         0.8935      1164
+   macro avg     0.7545    0.5396    0.5469      1164
+weighted avg     0.8664    0.8935    0.8560      1164
 
 
 ===== unigrams + bigrams =====
 Training...
 Testing...
-Accuracy: 0.8994845360824743
-Precision: 0.8319585051868517
-Recall: 0.5600868725868726
-Macro-f1: 0.5805353727311647
+Accuracy: 0.8986254295532646
+Precision: 0.8054824561403509
+Recall: 0.5630278716216216
+Macro-f1: 0.5847281346749226
               precision    recall  f1-score   support
 
-          HS       0.76      0.12      0.21       128
-      NOT_HS       0.90      1.00      0.95      1036
+          HS     0.7083    0.1328    0.2237       128
+      NOT_HS     0.9026    0.9932    0.9458      1036
 
-    accuracy                           0.90      1164
-   macro avg       0.83      0.56      0.58      1164
-weighted avg       0.89      0.90      0.87      1164
+    accuracy                         0.8986      1164
+   macro avg     0.8055    0.5630    0.5847      1164
+weighted avg     0.8813    0.8986    0.8664      1164
 
 
 ===== unigrams + bigrams + trigrams =====
 Training...
 Testing...
-Accuracy: 0.8917525773195877
-Precision: 0.7142142142142143
-Recall: 0.5968267374517375
-Macro-f1: 0.6244892106961072
+Accuracy: 0.8908934707903781
+Precision: 0.70926243567753
+Recall: 0.5929204874517375
+Macro-f1: 0.6195951179469232
               precision    recall  f1-score   support
 
-          HS       0.52      0.22      0.31       128
-      NOT_HS       0.91      0.97      0.94      1036
+          HS     0.5094    0.2109    0.2983       128
+      NOT_HS     0.9091    0.9749    0.9408      1036
 
-    accuracy                           0.89      1164
-   macro avg       0.71      0.60      0.62      1164
-weighted avg       0.87      0.89      0.87      1164
+    accuracy                         0.8909      1164
+   macro avg     0.7093    0.5929    0.6196      1164
+weighted avg     0.8651    0.8909    0.8702      1164
+

@@ -22,6 +22,7 @@ with open(args.train_path, 'r') as train_f:
     col_names = ["text", "label"]
     train_df = pd.read_csv(train_f, delimiter="\t", names=col_names)
     train_df = train_df.dropna()
+    train_df = train_df.sample(frac=1, random_state=1)
     x_train = [row[0] for row in train_df.itertuples(index=False)]
     y_train = [row[1] for row in train_df.itertuples(index=False)]
 
@@ -29,6 +30,7 @@ with open(args.test_path, 'r') as test_f:
     col_names = ["text", "label"]
     test_df = pd.read_csv(test_f, delimiter="\t", names=col_names)
     test_df = test_df.dropna()
+    test_df = test_df.sample(frac=1, random_state=1)
     x_test = [row[0] for row in test_df.itertuples(index=False)]
     y_test = [row[1] for row in test_df.itertuples(index=False)]
 
@@ -114,7 +116,7 @@ def classify(X_train, y_train, X_test, y_test):
     print(f"Precision: {metrics.precision_score(y_test, y_pred, average='macro')}") 
     print(f"Recall: {metrics.recall_score(y_test, y_pred, average='macro')}") 
     print(f"Macro-f1: {metrics.f1_score(y_test, y_pred, average='macro')}") 
-    print(classification_report(y_test, y_pred))
+    print(classification_report(y_test, y_pred, digits=4))
 
 
 

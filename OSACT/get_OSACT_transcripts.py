@@ -54,8 +54,6 @@ with open(OSACT_XYTRAIN_PATH, 'r') as f:
             if len(row)==1:
                 row = row[0].split('\t')
                 print(f"New row: {row}\n")
-                # TO-DO: find where row becomes only ['R']  
-                # assert(len(row)==3)
                 if len(row)!=3:
                     continue
                 osact_train_list.append((preprocess(row[0]), row[2]))
@@ -63,7 +61,6 @@ with open(OSACT_XYTRAIN_PATH, 'r') as f:
                 row = ' '.join(row)
                 row = row[0].split('\t')
                 print(f"New row: {row}\n")
-                # assert(len(row)==3)
                 if len(row)!=3:
                     continue
                 osact_train_list.append((preprocess(row[0]), row[2]))
