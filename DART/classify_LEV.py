@@ -30,16 +30,14 @@ train_df = train_df.dropna()
 test_df = test_df.dropna()
 
 ### Create train and test files
-# train_df.to_csv('classify_lev_train.tsv', sep="\t", index=False, header=False)
-# test_df.to_csv('classify_lev_test.tsv', sep="\t", index=False, header=False)
+train_df.to_csv('classify_lev_train.tsv', sep="\t", index=False, header=False)
+test_df.to_csv('classify_lev_test.tsv', sep="\t", index=False, header=False)
 
 x_train = [row[0] for row in train_df.itertuples(index=False)]
 y_train = [row[1] for row in train_df.itertuples(index=False)]
 x_test = [row[0] for row in test_df.itertuples(index=False)]
 y_test = [row[1] for row in test_df.itertuples(index=False)]
 
-
-### preliminary attempt w/ SVM, just to get some results in on time
 
 # trains SVM on X_train & y_train; tests X_test and y_test as y_pred
 # also prints out Accuracy, Precision, Recall, & F1-score
@@ -71,16 +69,17 @@ model = classify(X_train, y_train, X_test, y_test)
 
 # # save the model
 MODEL_PATH = 'levantine_classifier.pickle'
-# pickle.dump(model, open(MODEL_PATH, 'wb'))
+pickle.dump(model, open(MODEL_PATH, 'wb'))
 
 
 
 # load the OSACT train data
 with open(args.osact_train_path, 'r') as f:
     osact_df = pd.read_csv(f, delimiter="\t", header=None, index_col=False, error_bad_lines=False)
-    osact_df = train_df.dropna()
+    osact_df = osact_df.dropna()
 
 osact_tweets = osact_df.iloc[:, 0].tolist()
+osact_labels = osact_df.iloc[:, 1].tolist()
 osact_tweets_encoded = vectorizer.transform(osact_tweets).toarray() # use the fitted selector to transform the test data
 osact_tweets_encoded = selector.transform(osact_tweets_encoded)
 
@@ -91,23 +90,4 @@ predictions = model.predict(osact_tweets_encoded).tolist()
 with open(args.osact_lev_output_path, 'w') as f: 
     for ind,p in enumerate(predictions):
         if p=="LEV":
-            f.write(f"{osact_tweets[ind]}\tLEV\n")
-
-
-
-
-
-
-
-
-
-
-
-# """
-# Set up the LSTM classifier.
-
-# >>Why LSTM? See paper by Lulu & Elnagar (2019):
-# Lulu, L., & Elnagar, A. (2018). Automatic Arabic dialect classification using deep learning models. Procedia computer science, 142, 262-269.
-# """
-
-# # include LSTM code here -- reference rules.ipynb 
+            f.write(f"{osact_tweets[ind]}\t{osact_labels[ind]}\n")

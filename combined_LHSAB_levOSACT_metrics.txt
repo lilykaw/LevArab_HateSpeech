@@ -2,18 +2,18 @@
 ===== unigrams =====
 Training...
 Testing...
-Accuracy: 0.8986254295532646
-Precision: 0.7766267568974492
-Recall: 0.5801459942084942
-Macro-f1: 0.6085633186279539
+Accuracy: 0.8960481099656358
+Precision: 0.7552849449401173
+Recall: 0.5718508687258688
+Macro-f1: 0.5963048207585837
               precision    recall  f1-score   support
 
-          HS     0.6471    0.1719    0.2716       128
-      NOT_HS     0.9062    0.9884    0.9455      1036
+          HS     0.6061    0.1562    0.2484       128
+      NOT_HS     0.9045    0.9875    0.9442      1036
 
-    accuracy                         0.8986      1164
-   macro avg     0.7766    0.5801    0.6086      1164
-weighted avg     0.8777    0.8986    0.8714      1164
+    accuracy                         0.8960      1164
+   macro avg     0.7553    0.5719    0.5963      1164
+weighted avg     0.8717    0.8960    0.8677      1164
 
 
 ===== unigrams + bigrams =====
@@ -36,16 +36,15 @@ weighted avg     0.8855    0.8952    0.8532      1164
 ===== unigrams + bigrams + trigrams =====
 Training...
 Testing...
-Accuracy: 0.8908934707903781
-Precision: 0.7114351249307371
-Recall: 0.6237331081081081
-Macro-f1: 0.6510783131250428
+Accuracy: 0.884020618556701
+Precision: 0.6792133226302399
+Recall: 0.5993303571428572
+Macro-f1: 0.6222005842259007
               precision    recall  f1-score   support
 
-          HS     0.5070    0.2812    0.3618       128
-      NOT_HS     0.9158    0.9662    0.9403      1036
+          HS     0.4478    0.2344    0.3077       128
+      NOT_HS     0.9107    0.9643    0.9367      1036
 
-    accuracy                         0.8909      1164
-   macro avg     0.7114    0.6237    0.6511      1164
-weighted avg     0.8709    0.8909    0.8767      1164
-
+    accuracy                         0.8840      1164
+   macro avg     0.6792    0.5993    0.6222      1164
+weighted avg     0.8598    0.8840    0.8675      1164

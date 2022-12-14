@@ -3,12 +3,21 @@ import re
 import csv
 import random
 from emot.emo_unicode import UNICODE_EMOJI
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--lhsab_tsv_path', type=str, required=True)    # path to input LHSAB tsv file
+parser.add_argument('--output_train_path', type=str, required=True) # path to output train tsv file
+parser.add_argument('--output_test_path', type=str, required=True)  # path to output test tsv file
+args = parser.parse_args()
 
 
-LHSAB_TSV_PATH = '/Users/lilykawaoto/Documents/GitHub/LING-L715/L-HSAB.tsv'
+LHSAB_TSV_PATH = args.lhsab_tsv_path # '/Users/lilykawaoto/Documents/GitHub/LING-L715/L-HSAB.tsv'
+LHSAB_OUTPUT_TRAIN_PATH = args.output_train_path
+LHSAB_OUTPUT_TEST_PATH = args.output_test_path
 
 
-def emoji_to_text(txt):     # preprocessing
+def remove_emojis(txt):     # preprocessing
     text = ""
     for char in txt: 
         if char in UNICODE_EMOJI:
@@ -22,7 +31,7 @@ def preprocess(txt):
     text = re.sub('|'.join(patterns), '', txt)          # remove patterns
     text = re.sub(r'[a-zA-Z]', '', text)                # remove non-Arabic characters
     text = re.sub(r'(.)\1\1+', r'\1', text)             # remove 3 or more repetitions of any character
-    text = emoji_to_text(text)                          # repalce emojis with their Arabic description
+    text = remove_emojis(text)                          # remove emojis
     return text
 
 """
@@ -53,14 +62,13 @@ with open(LHSAB_TSV_PATH, 'r') as f:
 train_list = train_hate + train_non_hate
 random.shuffle(train_list)
 train_dict = dict(train_list)
-# print(f"train_dict: {train_dict}\n")
-with open('lhsab_train.tsv', 'w') as f:
+with open(LHSAB_OUTPUT_TRAIN_PATH, 'w') as f:
     for key in train_dict.keys():
         f.write(f"{key}\t{train_dict[key]}\n")
 
 test_list = test_hate + test_non_hate
 random.shuffle(test_list)
 test_dict = dict(test_list)
-with open('lhsab_test.tsv', 'w') as f:
+with open(LHSAB_OUTPUT_TEST_PATH, 'w') as f:
     for key in test_dict.keys():
         f.write(f"{key}\t{test_dict[key]}\n")

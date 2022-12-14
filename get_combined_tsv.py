@@ -14,7 +14,7 @@ args = parser.parse_args()
 with open(args.train_path1, 'r') as train_file_1:
     df1 = pd.read_csv(train_file_1, sep="\t", error_bad_lines=False, header=None)     # LHSAB train
 with open(args.train_path2, 'r') as train_file_2:
-    df2 = pd.read_csv(train_file_2, sep="\t", error_bad_lines=False, header=None)     # all_OSACT train or lev_OSACT train
+    df2 = pd.read_csv(train_file_2, sep="\t", error_bad_lines=False, header=None)     # all-OSACT train or lev-OSACT train
 newdf = df1.append(df2, ignore_index=True)
 
 ### Save as new tsv file

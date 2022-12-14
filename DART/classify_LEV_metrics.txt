@@ -1,48 +1,16 @@
-Training...
-Testing...
-Accuracy: 0.9864029666254636
-Precision: 0.9846337525693629
-Recall: 0.966442293727937
-Macro-f1: 0.9752552609333985
-              precision    recall  f1-score   support
-
-         LEV     0.9820    0.9364    0.9586       817
-      NONLEV     0.9872    0.9965    0.9919      4037
-
-    accuracy                         0.9864      4854
-   macro avg     0.9846    0.9664    0.9753      4854
-weighted avg     0.9864    0.9864    0.9863      4854
-
-
+>>> python3 classify_LEV.py --clean_lev_path "./clean_LEV.tsv" --clean_nonlev_path "./clean_NONLEV.tsv" --osact_train_path "../OSACT/osact_train_cleaned.tsv" --osact_lev_output_path "../OSACT/osact_train_levantine_UPDATED.tsv"
 
 Training...
 Testing...
-Accuracy: 0.984552008238929
-Precision: 0.9837325887098092
-Recall: 0.9593565878538683
-Macro-f1: 0.9710441267230683
+Accuracy: 0.9851668726823238
+Precision: 0.9843166834924131
+Recall: 0.9621503028681246
+Macro-f1: 0.9728137709706759
               precision    recall  f1-score   support
 
-         LEV     0.9826    0.9219    0.9513       794
-      NONLEV     0.9849    0.9968    0.9908      4061
+         LEV     0.9831    0.9275    0.9545       814
+      NONLEV     0.9856    0.9968    0.9911      4040
 
-    accuracy                         0.9846      4855
-   macro avg     0.9837    0.9594    0.9710      4855
-weighted avg     0.9845    0.9846    0.9844      4855
-
-
-
-Training...
-Testing...
-Accuracy: 0.984552008238929
-Precision: 0.9806178610824754
-Recall: 0.9623961910834584
-Macro-f1: 0.9712258988009823
-              precision    recall  f1-score   support
-
-         LEV     0.9749    0.9295    0.9516       794
-      NONLEV     0.9863    0.9953    0.9908      4061
-
-    accuracy                         0.9846      4855
-   macro avg     0.9806    0.9624    0.9712      4855
-weighted avg     0.9845    0.9846    0.9844      4855
+    accuracy                         0.9852      4854
+   macro avg     0.9843    0.9622    0.9728      4854
+weighted avg     0.9851    0.9852    0.9850      4854

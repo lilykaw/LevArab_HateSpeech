@@ -15,6 +15,7 @@ args = parser.parse_args()
 LEV_PATH = args.lev_path
 OTHER_PATHS = args.other_paths 
 
+"""
 def emoji_to_text(txt):     # helper for preprocess()
     # translator = google_translator()
     translator= Translator()
@@ -37,8 +38,9 @@ def emoji_to_text(txt):     # helper for preprocess()
         else:
             text += char
     return text
+"""
 
-def emoji_to_text2(txt):     # helper for preprocess()
+def remove_emojis(txt):     # helper for preprocess()
     text = ""
     for char in txt: 
         if char in UNICODE_EMOJI or char in UNICODE_EMOJI_ALIAS:
@@ -47,6 +49,7 @@ def emoji_to_text2(txt):     # helper for preprocess()
             text += char
     return text
 
+"""
 def emoticon_to_text(txt):     # helper for preprocess()
     translator= Translator()
     # translator = google_translator()
@@ -62,8 +65,9 @@ def emoticon_to_text(txt):     # helper for preprocess()
         else:
             text += char
     return text
+"""
 
-def emoticon_to_text2(txt):     # helper for preprocess()
+def remove_emoticons(txt):     # helper for preprocess()
     text = ""
     for char in txt: 
         if char in EMOTICONS_EMO:
@@ -80,9 +84,9 @@ def preprocess(txt):
     text = re.sub(r'[a-zA-Z0-9]', '', text)             # remove non-Arabic characters and numbers
     text = re.sub(r'\t', ' ', text)                     # replace tabs with single space
     text = re.sub(r'(.)\1\1+', r'\1', text)             # remove 3 or more repetitions of any character
-    text = emoji_to_text2(text)                          # replace emojis with their Arabic description
+    text = remove_emojis(text)                          # remove emojis
     # time.sleep(0.5)
-    text = emoticon_to_text2(text)                       # replace emoticons with their Arabic description
+    text = remove_emoticons(text)                       # remove emoticons
     # time.sleep(0.5)
     text = re.sub(r'http\S+', '', text)                 # remove URLs
     return text

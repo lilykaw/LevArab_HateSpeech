@@ -17,7 +17,7 @@ OSACT_XYTRAIN_PATH = args.XYtrain_path  # '/Users/lilykawaoto/Documents/GitHub/L
 OSACT_XTEST_PATH = args.Xtest_path      # '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT2020-sharedTask-CodaLab-Train-Dev-Test/OSACT2020-sharedTask-test-tweets.txt'
 OSACT_YTEST_PATH = args.Ytest_path      # '/Users/lilykawaoto/Documents/GitHub/LING-L715/OSACT/OSACT2020-sharedTask-CodaLab-Train-Dev-Test/OSACT2020-sharedTask-test-taskB-gold-labels.txt'
 
-def del_emo(txt):     # helper for preprocess()
+def remove_emojis(txt):     # helper for preprocess()
     translator= Translator()
     text = ""
     for char in txt: 
@@ -34,7 +34,7 @@ def preprocess(txt):
     text = re.sub(r'[a-zA-Z]', '', text)                # remove non-Arabic characters
     text = re.sub(r'\t', ' ', text)                     # replace tabs with single space
     text = re.sub(r'(.)\1\1+', r'\1', text)             # remove 3 or more repetitions of any character
-    text = del_emo(text)                          # replace emojis with their Arabic description
+    text = remove_emojis(text)                          # remove emojis and emoticons
     return text
 
 """
@@ -67,7 +67,9 @@ with open(OSACT_XYTRAIN_PATH, 'r') as f:
         
         else:
             osact_train_list.append((preprocess(row[0]), row[1].strip()))
-with open('osact_train_cleaned_NEW.tsv', 'w') as f:
+
+### TO-DO: add argparse argument for name of this file
+with open('osact_train_cleaned.tsv', 'w') as f:
     for pair in osact_train_list:
         f.write(f"{pair[0]}\t{pair[1]}\n")
 
@@ -77,6 +79,8 @@ with open(OSACT_XTEST_PATH, 'r') as f1, open(OSACT_YTEST_PATH, 'r') as f2:
     reader1 = f1.read().splitlines() 
     reader2 = f2.read().splitlines()
     osact_test_list = [(preprocess(row), reader2[i]) for i,row in enumerate(reader1)]  
-with open('osact_test_cleaned_NEW.tsv', 'w') as f:
+
+### TO-DO: add argparse argument for name of this file
+with open('osact_test_cleaned.tsv', 'w') as f:
     for pair in osact_test_list:
         f.write(f"{pair[0]}\t{pair[1]}\n")
