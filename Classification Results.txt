@@ -1,0 +1,325 @@
+MultinomialNB
+
+Accuracy: 0.91
+
+Confusion Matrix:
+[[  34  120]
+ [  17 1334]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+          HS       0.67      0.22      0.33       154
+      Non_HS       0.92      0.99      0.95      1351
+
+    accuracy                           0.91      1505
+   macro avg       0.79      0.60      0.64      1505
+weighted avg       0.89      0.91      0.89      1505
+
+
+Micro F1 Score: 0.91
+
+-----------
+SVC & XGBClassifier
+
+Linear SVM Evaluation Results:
+              precision    recall  f1-score   support
+
+           0       0.65      0.31      0.42        70
+           1       0.93      0.98      0.96       682
+
+    accuracy                           0.92       752
+   macro avg       0.79      0.65      0.69       752
+weighted avg       0.91      0.92      0.91       752
+
+Accuracy: 0.9202127659574468
+Micro F1 Score: 0.9202127659574468
+
+Linear SVM Test Results:
+              precision    recall  f1-score   support
+
+           0       0.79      0.32      0.46        84
+           1       0.92      0.99      0.95       669
+
+    accuracy                           0.92       753
+   macro avg       0.86      0.66      0.71       753
+weighted avg       0.91      0.92      0.90       753
+
+Accuracy: 0.9150066401062417
+Micro F1 Score: 0.9150066401062417
+
+XGBoost Evaluation Results:
+              precision    recall  f1-score   support
+
+           0       0.70      0.44      0.54        70
+           1       0.94      0.98      0.96       682
+
+    accuracy                           0.93       752
+   macro avg       0.82      0.71      0.75       752
+weighted avg       0.92      0.93      0.92       752
+
+Accuracy: 0.9308510638297872
+Micro F1 Score: 0.9308510638297872
+
+XGBoost Test Results:
+              precision    recall  f1-score   support
+
+           0       0.82      0.37      0.51        84
+           1       0.93      0.99      0.96       669
+
+    accuracy                           0.92       753
+   macro avg       0.87      0.68      0.73       753
+weighted avg       0.91      0.92      0.91       753
+
+Accuracy: 0.9203187250996016
+Micro F1 Score: 0.9203187250996016
+
+------------------
+
+aubmindlab/bert-base-arabertv02-twitter
+
+Epoch 1/3: 100%|██████████| 753/753 [01:21<00:00,  9.25batch/s]
+Average Training Loss: 0.2190481598812414
+Evaluating: 100%|██████████| 94/94 [00:02<00:00, 37.44batch/s]
+Epoch: 1
+Evaluation Results:
+              precision    recall  f1-score   support
+
+           0       0.96      0.96      0.96       682
+           1       0.61      0.66      0.63        70
+
+    accuracy                           0.93       752
+   macro avg       0.78      0.81      0.80       752
+weighted avg       0.93      0.93      0.93       752
+
+Micro F1 Score: 0.9281914893617021
+Epoch 2/3: 100%|██████████| 753/753 [01:22<00:00,  9.17batch/s]
+Average Training Loss: 0.11188873849224155
+Evaluating: 100%|██████████| 94/94 [00:02<00:00, 34.83batch/s]
+Epoch: 2
+Evaluation Results:
+              precision    recall  f1-score   support
+
+           0       0.97      0.94      0.96       682
+           1       0.56      0.73      0.63        70
+
+    accuracy                           0.92       752
+   macro avg       0.77      0.83      0.79       752
+weighted avg       0.93      0.92      0.93       752
+
+Micro F1 Score: 0.9215425531914894
+Epoch 3/3: 100%|██████████| 753/753 [01:22<00:00,  9.16batch/s]
+Average Training Loss: 0.05353566033067336
+Evaluating: 100%|██████████| 94/94 [00:02<00:00, 36.42batch/s]
+Epoch: 3
+Evaluation Results:
+              precision    recall  f1-score   support
+
+           0       0.96      0.98      0.97       682
+           1       0.71      0.59      0.64        70
+
+    accuracy                           0.94       752
+   macro avg       0.83      0.78      0.80       752
+weighted avg       0.93      0.94      0.94       752
+
+Micro F1 Score: 0.9388297872340425
+Testing: 100%|██████████| 95/95 [00:02<00:00, 35.16batch/s]
+Test Results:
+              precision    recall  f1-score   support
+
+           0       0.96      0.98      0.97       669
+           1       0.83      0.65      0.73        84
+
+    accuracy                           0.95       753
+   macro avg       0.90      0.82      0.85       753
+weighted avg       0.94      0.95      0.94       753
+
+Accuracy: 0.9468791500664011
+Micro F1 Score: 0.9468791500664011
+
+------------------------
+
+CAMeL-Lab/bert-base-arabic-camelbert-da-sentiment
+
+Epoch 1/3: 100%|██████████| 753/753 [01:19<00:00,  9.43batch/s]
+Average Training Loss: 0.2508977539348818
+Evaluating: 100%|██████████| 94/94 [00:02<00:00, 35.95batch/s]
+Epoch: 1
+Evaluation Results:
+              precision    recall  f1-score   support
+
+           0       0.96      0.93      0.94       682
+           1       0.46      0.61      0.53        70
+
+    accuracy                           0.90       752
+   macro avg       0.71      0.77      0.74       752
+weighted avg       0.91      0.90      0.90       752
+
+Micro F1 Score: 0.8976063829787234
+Epoch 2/3: 100%|██████████| 753/753 [01:19<00:00,  9.45batch/s]
+Average Training Loss: 0.12783403198759147
+Evaluating: 100%|██████████| 94/94 [00:02<00:00, 37.32batch/s]
+Epoch: 2
+Evaluation Results:
+              precision    recall  f1-score   support
+
+           0       0.96      0.96      0.96       682
+           1       0.62      0.61      0.62        70
+
+    accuracy                           0.93       752
+   macro avg       0.79      0.79      0.79       752
+weighted avg       0.93      0.93      0.93       752
+
+Micro F1 Score: 0.9295212765957447
+Epoch 3/3: 100%|██████████| 753/753 [01:19<00:00,  9.46batch/s]
+Average Training Loss: 0.05950570420742685
+Evaluating: 100%|██████████| 94/94 [00:02<00:00, 35.97batch/s]
+Epoch: 3
+Evaluation Results:
+              precision    recall  f1-score   support
+
+           0       0.97      0.94      0.95       682
+           1       0.53      0.69      0.60        70
+
+    accuracy                           0.91       752
+   macro avg       0.75      0.81      0.78       752
+weighted avg       0.93      0.91      0.92       752
+
+Micro F1 Score: 0.9148936170212766
+Testing: 100%|██████████| 95/95 [00:02<00:00, 37.29batch/s]
+Test Results:
+              precision    recall  f1-score   support
+
+           0       0.96      0.94      0.95       669
+           1       0.61      0.70      0.65        84
+
+    accuracy                           0.92       753
+   macro avg       0.79      0.82      0.80       753
+weighted avg       0.92      0.92      0.92       753
+
+Accuracy: 0.9163346613545816
+Micro F1 Score: 0.9163346613545816
+
+---------------------------
+
+Hate-speech-CNERG/dehatebert-mono-arabic
+
+Epoch: 1
+Evaluation Results:
+              precision    recall  f1-score   support
+
+           0       0.91      1.00      0.95       682
+           1       0.00      0.00      0.00        70
+
+    accuracy                           0.91       752
+   macro avg       0.45      0.50      0.48       752
+weighted avg       0.82      0.91      0.86       752
+
+Micro F1 Score: 0.9069148936170213
+Epoch 2/3: 100%|██████████| 752/752 [01:28<00:00,  8.49batch/s]
+Average Training Loss: 0.33707936820475026
+Evaluating: 100%|██████████| 94/94 [00:02<00:00, 37.67batch/s]
+
+
+Epoch: 2
+Evaluation Results:
+              precision    recall  f1-score   support
+
+           0       0.91      1.00      0.95       682
+           1       0.00      0.00      0.00        70
+
+    accuracy                           0.91       752
+   macro avg       0.45      0.50      0.48       752
+weighted avg       0.82      0.91      0.86       752
+
+Micro F1 Score: 0.9069148936170213
+Epoch 3/3: 100%|██████████| 752/752 [01:28<00:00,  8.50batch/s]
+Average Training Loss: 0.33662545023624724
+
+Epoch: 3
+Evaluation Results:
+              precision    recall  f1-score   support
+
+           0       0.91      1.00      0.95       682
+           1       0.00      0.00      0.00        70
+
+    accuracy                           0.91       752
+   macro avg       0.45      0.50      0.48       752
+weighted avg       0.82      0.91      0.86       752
+
+Micro F1 Score: 0.9069148936170213
+Testing: 100%|██████████| 94/94 [00:02<00:00, 37.17batch/s]
+Test Results:
+              precision    recall  f1-score   support
+
+           0       0.89      1.00      0.94       668
+           1       0.00      0.00      0.00        84
+
+    accuracy                           0.89       752
+   macro avg       0.44      0.50      0.47       752
+weighted avg       0.79      0.89      0.84       752
+
+Accuracy: 0.8882978723404256
+Micro F1 Score: 0.8882978723404256
+
+-----------------------------------
+UBC-NLP/MARBERTv2
+Epoch 1/3: 100%|██████████| 752/752 [01:27<00:00,  8.56batch/s]
+Average Training Loss: 0.22761793173552353
+Evaluating: 100%|██████████| 94/94 [00:02<00:00, 39.12batch/s]
+Epoch: 1
+Evaluation Results:
+              precision    recall  f1-score   support
+
+           0       0.97      0.95      0.96       682
+           1       0.61      0.74      0.67        70
+
+    accuracy                           0.93       752
+   macro avg       0.79      0.85      0.82       752
+weighted avg       0.94      0.93      0.94       752
+
+Micro F1 Score: 0.9321808510638298
+Epoch 2/3: 100%|██████████| 752/752 [01:27<00:00,  8.58batch/s]
+Average Training Loss: 0.11614297976298753
+Evaluating: 100%|██████████| 94/94 [00:02<00:00, 39.56batch/s]
+Epoch: 2
+Evaluation Results:
+              precision    recall  f1-score   support
+
+           0       0.93      1.00      0.96       682
+           1       0.90      0.26      0.40        70
+
+    accuracy                           0.93       752
+   macro avg       0.91      0.63      0.68       752
+weighted avg       0.93      0.93      0.91       752
+
+Micro F1 Score: 0.9281914893617021
+Epoch 3/3: 100%|██████████| 752/752 [01:27<00:00,  8.59batch/s]
+Average Training Loss: 0.0655119432926864
+Evaluating: 100%|██████████| 94/94 [00:02<00:00, 40.23batch/s]
+Epoch: 3
+Evaluation Results:
+              precision    recall  f1-score   support
+
+           0       0.96      0.97      0.96       682
+           1       0.67      0.57      0.62        70
+
+    accuracy                           0.93       752
+   macro avg       0.81      0.77      0.79       752
+weighted avg       0.93      0.93      0.93       752
+
+Micro F1 Score: 0.9335106382978723
+Testing: 100%|██████████| 94/94 [00:02<00:00, 40.64batch/s]
+Test Results:
+              precision    recall  f1-score   support
+
+           0       0.95      0.97      0.96       668
+           1       0.71      0.58      0.64        84
+
+    accuracy                           0.93       752
+   macro avg       0.83      0.78      0.80       752
+weighted avg       0.92      0.93      0.92       752
+
+Accuracy: 0.9268617021276596
+Micro F1 Score: 0.9268617021276596
+
